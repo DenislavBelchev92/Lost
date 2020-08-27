@@ -1,0 +1,16 @@
+projects/
+templates/
+common/
+local/
+Where:
+
+projects contains your main project and any others
+
+common contains things you may share across sites, or are at least not project-specific,
+like if you need to download django-profile and django-registration rather than having it directly in python/site-packages
+
+templates contains just that
+
+local contains things that are going to be specific to the current machine, so that you can have properly separated data, like database location and password - I then soft-link the machine-specific versions (say "machine1-localconfig.py") to local/localconfig.py and then can "import localconfig" in settings.py
+I generally put middleware that's project-specific inside a project, and middleware that's not project-specific in common/middleware/
+make sure to add the templates directory to the right place in settings (or most probably, localconfig.py and then import it in settings), and makse sure to add the projects, common, and local directories to your PYTHONPATH.
