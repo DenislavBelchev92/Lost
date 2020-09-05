@@ -18,6 +18,8 @@ from django.urls import include, path
 from django.conf.urls import url
 
 urlpatterns = [
+    # temprorary
+   # url(r'^', include(('polls.urls', 'polls'), namespace="polls")),
     url(r'^polls/', include(('polls.urls', 'polls'), namespace="polls")),
     url(r'^admin/', admin.site.urls),
     #path('polls/', include('polls.urls')),
