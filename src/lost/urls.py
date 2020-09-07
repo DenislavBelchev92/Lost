@@ -19,9 +19,10 @@ from django.conf.urls import url
 
 urlpatterns = [
     # temprorary
-   # url(r'^', include(('polls.urls', 'polls'), namespace="polls")),
-    url(r'^polls/', include(('polls.urls', 'polls'), namespace="polls")),
-    url(r'^admin/', admin.site.urls),
+    url(r'',            include(('apps.mainpage.urls', 'mainpage'),     namespace="mainpage")),
+    url(r'^locations/', include(('apps.locations.urls', 'locations'),   namespace="locations")),
+    url(r'^polls/',     include(('polls.urls', 'polls'),                namespace="polls")),
+    url(r'^admin/',     admin.site.urls),
     #path('polls/', include('polls.urls')),
     #path('admin/', admin.site.urls),
 ]

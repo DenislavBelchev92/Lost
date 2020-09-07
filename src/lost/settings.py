@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.mainpage',
+    'apps.locations',
     'polls',
 ]
 
@@ -73,7 +75,9 @@ WSGI_APPLICATION = 'lost.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
+# 
+# --- 'sql_mode': 'traditional', -
+# Used to treat warnings as error in SQL queries 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -81,7 +85,10 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
-        'PORT': '3306'
+        'PORT': '3306',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        }
     }
 }
 
