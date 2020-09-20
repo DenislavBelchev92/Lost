@@ -1,5 +1,5 @@
 """
-WSGI config for lost project.
+WSGI config for beacon project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'lost.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'beacon.settings')
 
 application = get_wsgi_application()
