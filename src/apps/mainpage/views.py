@@ -13,19 +13,20 @@ def login(request):
         form = LoginForm(request.POST)
         if form.is_valid():
             context = {
-                'loged_in': "TRUE",
                 'text': "loged_in",
             }
             return HttpResponse(render(request, 'mainpage/index.html', context))
         else:
             print('BAD VALUES PASSED')
     else:
-        form = LoginForm()
-        return HttpResponse(render(request, 'login/login.html', {'form' : form}))
+        context = {
+            'form' : LoginForm(),
+        }
+        return HttpResponse(render(request, 'login/login.html', context))
 
 def register(request):
     context = {
-        'register_page': "TRUE",
+        'form' : LoginForm(),
     }
 
     return HttpResponse(render(request, 'login/register.html', context))
