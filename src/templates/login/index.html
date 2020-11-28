@@ -15,7 +15,7 @@
             </div>
         </div>
 
-        <form action="/login/" method="POST" class="form-horizontal">
+        <form action={% block action %}{% endblock %} method="POST" class="form-horizontal">
             {% csrf_token %}
             {% for field in form %}
                 <div class="form-group">
@@ -33,6 +33,15 @@
             {% endblock %}
 
         </form>
+
+        {% if form.subject.errors %}
+            <ol>
+            {% for error in form.subject.errors %}
+                <li><strong>{{ error|escape }}</strong></li>
+            {% endfor %}
+            </ol>
+        {% endif %}
+
     </div>
 </div>
 {% endblock %}

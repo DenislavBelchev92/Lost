@@ -1,8 +1,7 @@
 {% extends "login/index.html" %}
 {% block title %} Log in {% endblock %}
-
 {% block header %} Log in {% endblock %}
-
 {% block register_link %} 
 <a href="{% url 'mainpage:register' %}" class="btn btn-link" role="button">Register</a>
 {% endblock %}
+{% block action %}"/login/"{% endblock %}

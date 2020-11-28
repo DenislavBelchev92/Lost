@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from .forms import LoginForm
+from .forms import LoginForm, RegisterForm
 
 def index(request):
     context = {
@@ -17,7 +17,10 @@ def login(request):
             }
             return HttpResponse(render(request, 'mainpage/index.html', context))
         else:
-            print('BAD VALUES PASSED')
+            context = {
+                'form' : form,
+            }
+            return HttpResponse(render(request, 'login/login.html', context))
     else:
         context = {
             'form' : LoginForm(),
@@ -25,8 +28,22 @@ def login(request):
         return HttpResponse(render(request, 'login/login.html', context))
 
 def register(request):
-    context = {
-        'form' : LoginForm(),
-    }
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            context = {
+                'text': "loged_in",
+            }
+            return HttpResponse(render(request, 'mainpage/register.html', context))
+        else:
+            context = {
+                'form' : form,
+            }
+            return HttpResponse(render(request, 'login/register.html', context))
+    else:
+        context = {
+            'form' : RegisterForm(),
+        }
+        return HttpResponse(render(request, 'login/register.html', context))
 
     return HttpResponse(render(request, 'login/register.html', context))
