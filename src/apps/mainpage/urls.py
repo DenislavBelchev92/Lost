@@ -5,8 +5,5 @@ from . import views
 app_name = 'mainpage'
 urlpatterns = [
     path('', views.index, name='index'),
-    path('login/', views.login, name='login'),
-    path('login/logedin', views.login, name='logedin'),
-    path('register/', views.register, name='register'),
-
 ]
+

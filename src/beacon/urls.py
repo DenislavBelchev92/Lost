@@ -20,6 +20,7 @@ from django.conf.urls import url
 urlpatterns = [
     # temprorary
     url(r'',            include(('apps.mainpage.urls', 'mainpage'),     namespace="mainpage")),
+    url(r'^access/',    include(('apps.access.urls', 'access'),         namespace="access")),
     url(r'^locations/', include(('apps.locations.urls', 'locations'),   namespace="locations")),
     url(r'^polls/',     include(('polls.urls', 'polls'),                namespace="polls")),
     url(r'^admin/',     admin.site.urls),
