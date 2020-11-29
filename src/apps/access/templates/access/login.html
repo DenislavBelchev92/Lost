@@ -1,7 +1,10 @@
 {% extends "access/template.html" %}
+{% block grid_size %}"col-md-4 col-md-offset-4"{% endblock %}
 {% block title %} Log in {% endblock %}
 {% block header %} Log in {% endblock %}
 {% block register_link %} 
 <a href="{% url 'access:register' %}" class="btn btn-link" role="button">Register</a>
 {% endblock %}
 {% block action %}"{% url 'access:login' %}"{% endblock %}
+
+
