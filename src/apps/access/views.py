@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import LoginForm, RegisterForm
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
 
-def login(request):
+def loginView(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -13,6 +13,7 @@ def login(request):
 
             user = authenticate(username=username, password=password)
             if user is not None:
+                login(request, user)
                 context = {
                     'text': "loged_in " + username,
                 }
@@ -37,7 +38,14 @@ def login(request):
         }
         return HttpResponse(render(request, 'access/login.html', context))
 
-def register(request):
+def logoutView(request):
+    logout(request)
+    context = {
+        'text': " You are now loged out! ",
+    }
+    return HttpResponse(render(request, 'mainpage/index.html', context))
+
+def registerView(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
