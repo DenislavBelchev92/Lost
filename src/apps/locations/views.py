@@ -5,6 +5,6 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def index(request):
     context = {
-        'text': "Locations loged in",
+        'text': "Locations",
     }
     return HttpResponse(render(request, 'locations/index.html', context))
