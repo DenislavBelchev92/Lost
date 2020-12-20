@@ -6,21 +6,13 @@
 {% if user.is_authenticated %}
 
   {{text}}
-  {% for location in locations %}
-      {{ location.latitude }}
-  {% endfor %}
-
-  {% for type in beacon_types %}
-      {{type}}
-  {% endfor %}
-  
 
   <div class="row">
     <div class="col-sm-4">
         <div class="container-fluid">
             <h1>Beacons</h1>
               {% for type_short, type in beacon_types %}
-             {# <button type="button" class="btn btn-primary btn-block"> {{type}} <span class="badge">7</span></button> #}
+             {# <button type="button" class="bexittn btn-primary btn-block"> {{type}} <span class="badge">7</span></button> #}
               <div class="panel-group">
                 <div class="panel panel-default">
                   <div class="panel-heading">
@@ -30,9 +22,9 @@
                   </div>
                   <div id="collapse{{forloop.counter}}" class="panel-collapse collapse">
                     <ul class="list-group">
-                        {% for location in locations %}
-                            {% if location.location_type == type_short %}
-                              <li class="list-group-item">{{location.name}}</li>
+                        {% for beacon in beacons %}
+                            {% if beacon.beacon_type == type_short %}
+                              <li class="list-group-item">{{beacon.name}}</li>
                             {% endif %}
                         {% endfor %}
                     </ul>

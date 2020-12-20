@@ -17,7 +17,7 @@ def loginView(request):
                 context = {
                     'text': "loged_in " + username,
                 }
-                return HttpResponse(render(request, 'mainpage/index.html', context))
+                return HttpResponse(render(request, 'beacons/index.html', context))
 
             else:
                 context = {
@@ -43,7 +43,7 @@ def logoutView(request):
     context = {
         'text': " You are now loged out! ",
     }
-    return HttpResponse(render(request, 'mainpage/index.html', context))
+    return HttpResponse(render(request, 'beacons/index.html', context))
 
 def registerView(request):
     if request.method == 'POST':
@@ -65,7 +65,7 @@ def registerView(request):
             context = {
                 'text': "You just registered with first_name " + first_name + " last_name " + last_name + " username " + " email " + email + " password " + str(password),
             }
-            return HttpResponse(render(request, 'mainpage/index.html', context))
+            return HttpResponse(render(request, 'beacons/index.html', context))
         else:
             context = {
                 'form' : form,

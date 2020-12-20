@@ -19,9 +19,9 @@ from django.conf.urls import url
 
 urlpatterns = [
     # temprorary
-    url(r'',                include(('apps.mainpage.urls', 'mainpage'),         namespace="mainpage")),
+    url(r'',                include(('apps.beacons.urls', 'beacons'),           namespace="index")),
+    url(r'^beacons/',       include(('apps.beacons.urls', 'beacons'),           namespace="beacons")),
     url(r'^access/',        include(('apps.access.urls', 'access'),             namespace="access")),
-    url(r'^locations/',     include(('apps.locations.urls', 'locations'),       namespace="locations")),
     url(r'^profile_page/',  include(('apps.profile_page.urls', 'profile_page'), namespace="profile_page")),
     url(r'^polls/',         include(('polls.urls', 'polls'),                    namespace="polls")),
     url(r'^admin/',         admin.site.urls),

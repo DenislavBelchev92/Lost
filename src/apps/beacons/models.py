@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
-class Location(models.Model):
+class Beacon(models.Model):
     beacon_choices = [
     ('LF', 'Lost and Found'),
     ('SL', 'Stolen item'),
@@ -11,7 +11,7 @@ class Location(models.Model):
     latitude = models.FloatField(default=0)
     longitude = models.FloatField(default=0)
     name = models.CharField(max_length=200)
-    location_type = models.CharField(
+    beacon_type = models.CharField(
         max_length=2, 
         choices=beacon_choices,
         default='LF',
