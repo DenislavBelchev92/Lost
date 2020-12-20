@@ -25,6 +25,4 @@ urlpatterns = [
     url(r'^profile_page/',  include(('apps.profile_page.urls', 'profile_page'), namespace="profile_page")),
     url(r'^polls/',         include(('polls.urls', 'polls'),                    namespace="polls")),
     url(r'^admin/',         admin.site.urls),
-    #path('polls/', include('polls.urls')),
-    #path('admin/', admin.site.urls),
 ]
