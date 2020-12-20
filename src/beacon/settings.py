@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.mainpage',
     'apps.access',
+    'apps.profile_page',
     'apps.locations',
     'polls',
 ]
