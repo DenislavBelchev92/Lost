@@ -8,11 +8,14 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     context = {
         'text': "Beacons",
+        'beacons': Beacon.objects.all(),
+        'beacon_types': Beacon.beacon_choices,
+
     }
     return HttpResponse(render(request, 'beacons/index.html', context))
 
 @login_required
-def add(request):
+def add(request, id=None):
 
     if request.method == 'POST':
         form = BeaconAddForm(request.POST)
@@ -43,7 +46,13 @@ def add(request):
             }
             return HttpResponse(render(request, 'beacons/add.html', context))
     else:
+        if id != None:
+            beacon = Beacon.objects.get(id=id)
+            form = BeaconAddForm(instance=beacon)
+        else:
+            form = BeaconAddForm()
         context = {
-            'form' : BeaconAddForm(),
+            'form' : form,
         }
         return HttpResponse(render(request, 'beacons/add.html', context))
+

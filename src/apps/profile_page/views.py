@@ -17,8 +17,6 @@ def index(request):
           #  'beacon_types': [type[1] for type in Location.beacon_choices],
             'beacon_types': Beacon.beacon_choices,
             'beacons': beacons,
-            'beacon_types': Beacon.beacon_choices,
-
         }
 
     return HttpResponse(render(request, 'profile_page/index.html', context))

@@ -1,0 +1,24 @@
+
+
+
+      
+    {% for type_short, type in beacon_types %}
+        <button class="btn btn-primary btn-block" data-toggle="collapse" data-target="#collapse{{type_short}}">{{type}}</button>
+ 
+        <div id="collapse{{type_short}}" class="collapse">
+            <ul class="list-group">
+                {% for beacon in beacons %}
+                    {% if beacon.beacon_type == type_short %}
+                    <a href="{% url 'beacons:details' id=beacon.id %}" class="list-group-item">{{beacon.name}}</a>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+
+
+{% for type_short, type in beacon_types %}
+
+
+
+{% endfor %}
