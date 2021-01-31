@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Beacon
-from .forms import BeaconAddForm
+from .forms import BeaconFullForm
 from django.contrib.auth.decorators import login_required
 
 @login_required
@@ -15,10 +15,11 @@ def index(request):
     return HttpResponse(render(request, 'beacons/index.html', context))
 
 @login_required
+# Used for both add/show/update
 def add(request, id=None):
-
     if request.method == 'POST':
-        form = BeaconAddForm(request.POST)
+        # Validate and add
+        form = BeaconFullForm(request.POST)
         if form.is_valid():
             user_id = request.user.id
             name = form.cleaned_data.get('name')
@@ -41,18 +42,31 @@ def add(request, id=None):
             return HttpResponse(render(request, 'beacons/index.html', context))
 
         else:
+            # Here we should handle if the form input are invalid
             context = {
+                'debug_text': "Please fix the form errors",
                 'form' : form,
             }
             return HttpResponse(render(request, 'beacons/add.html', context))
     else:
-        if id != None:
-            beacon = Beacon.objects.get(id=id)
-            form = BeaconAddForm(instance=beacon)
-        else:
-            form = BeaconAddForm()
+        # Return empty form
+        form = BeaconFullForm()
         context = {
             'form' : form,
         }
         return HttpResponse(render(request, 'beacons/add.html', context))
 
+@login_required
+def details(request, id=None):
+
+    # If we display a beacon
+    if id != None:
+        beacon = Beacon.objects.get(id=id)
+        form = BeaconFullForm(instance=beacon)
+    else:
+        form = BeaconFullForm()
+
+    context = {
+        'form' : form,
+    }
+    return HttpResponse(render(request, 'beacons/add.html', context))
