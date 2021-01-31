@@ -1,0 +1,40 @@
+{% extends "base/index.html" %}
+
+{% block title %} Update Beacon {% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+      <div class="container-fluid">
+
+        <form action="{% url 'beacons:update' %}" method="POST" class="form-horizontal">
+            {% csrf_token %}
+
+            {% for field in form %}
+                <div class="form-group">
+                  {{ field.errors }}
+                  {{ field.label_tag }} {{ field }}
+                  {% if field.help_text %}
+                  <p class="help">{{ field.help_text|safe }}</p>
+                  {% endif %}
+                </div>
+            {% endfor %}
+            <input type="hidden" id="beacon_id" name="beacon_id" value={{beacon_id}}>
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+
+        {% if form.subject.errors %}
+            <ol>
+            {% for error in form.subject.errors %}
+                <li><strong>{{ error|escape }}</strong></li>
+            {% endfor %}
+            </ol>
+        {% endif %}
+
+
+      </div>
+    </div>
+</div>
+
+{% endblock %}

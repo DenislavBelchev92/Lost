@@ -5,4 +5,4 @@ from .models import Beacon
 class BeaconFullForm(forms.ModelForm):
     class Meta:
         model = Beacon
-        fields = ['name', 'latitude', 'longitude', 'beacon_type']
+        fields = ['id', 'name', 'latitude', 'longitude', 'beacon_type']
