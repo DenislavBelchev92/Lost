@@ -76,10 +76,21 @@ def update(request):
 
     if request.method == 'POST':
         # Validate and add
+
+        beacon = Beacon.objects.get(pk=request.POST['beacon_id'])
+        try:
+            request.POST['_delete']
+        except:
+            pass
+        else:
+            beacon.delete()
+            context = {
+                'debug_text': " We deleted beacon with name " + beacon.name ,
+            }
+            return HttpResponse(render(request, 'beacons/index.html', context))
+
         form = BeaconFullForm(request.POST)
         if form.is_valid():
-
-            beacon = Beacon.objects.get(pk=request.POST['beacon_id'])
 
             beacon.user_id = request.user.id
             beacon.name = form.cleaned_data.get('name')
@@ -90,7 +101,7 @@ def update(request):
             beacon.save()
 
             context = {
-                'debug_text': " We updated beacon with name " + beacon.name,
+                'debug_text': " We updated beacon with name " + beacon.name ,
             }
             return HttpResponse(render(request, 'beacons/index.html', context))
 
