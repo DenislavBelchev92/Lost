@@ -36,7 +36,7 @@ function initMarkerDraggable(map, position) {
 
 
 function initMap() {
-    initMapTemplate(-34.397, 150.644, "map");
+    initMapTemplate(42.148104117060754, 24.755662688914725, "map");
 }
 
 function initMapTemplate(lat, long, tag_id = "map") {
