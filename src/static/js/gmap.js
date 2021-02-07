@@ -1,11 +1,16 @@
+let last_marker = null
+
 function initMarkerDraggable(map, position) {
 
+    if (last_marker) {
+        last_marker.setMap(null)
+    }
     const marker = new google.maps.Marker({
         position: position,
         draggable:true,
         map: map,
     });
-
+    last_marker = marker
     const contentString = 'You can move to fine tune the location';
     let infoWindow = new google.maps.InfoWindow({
         content: contentString,
