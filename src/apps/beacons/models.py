@@ -8,8 +8,8 @@ class Beacon(models.Model):
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=-1)
-    latitude = models.DecimalField(default=0, max_digits=6, decimal_places=4)
-    longitude = models.DecimalField(default=0, max_digits=6, decimal_places=4)
+    latitude = models.DecimalField(default=0, max_digits=18, decimal_places=15)
+    longitude = models.DecimalField(default=0, max_digits=18, decimal_places=15)
     name = models.CharField(max_length=200)
     beacon_type = models.CharField(
         max_length=2, 
