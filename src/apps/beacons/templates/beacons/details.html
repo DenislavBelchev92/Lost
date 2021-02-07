@@ -1,6 +1,12 @@
-{% extends "base/index.html" %}
+{% extends "beacons/base.html" %}
 
-{% block title %} Update Beacon {% endblock %}
+{% block title %} Details {% endblock %}
+
+{% load static %}
+
+{% block scripts_head %} 
+<script src="{% static "js/gmap_details.js" %}"></script>   
+{% endblock %}
 
 {% block content %}
 <div class="row">
@@ -66,8 +72,5 @@ function initMap() {
 }
 
 </script>
-
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvbgILGvzWiIFiv1P2aS8ygpO2VTvIqhs&callback=initMap"></script>
 
 {% endblock %}

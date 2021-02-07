@@ -1,0 +1,16 @@
+{% extends "base/index.html" %}
+
+{% block title %} {% endblock %}
+
+{% block content %}
+{% endblock %}
+
+{% block scripts_body %}
+
+<!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvbgILGvzWiIFiv1P2aS8ygpO2VTvIqhs&callback=initMap&libraries=&v=weekly"
+  async
+></script>
+
+{% endblock %}

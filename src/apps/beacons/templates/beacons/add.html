@@ -1,98 +1,14 @@
-{% extends "base/index.html" %}
+{% extends "beacons/base.html" %}
 
-{% block title %} Create Beacon {% endblock %}
+{% block title %} Lid a Beacon {% endblock %}
 
-{% block content %}
-{{debug_text}}
+{% load static %}
 
-{% block script_text %} 
- <script>
-
-    function initMap() {
-      const map_center = new google.maps.LatLng(-34.397, 150.644 )
-
-      const map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 8,
-        center: map_center,
-      });
-
-      /*
-      * Geocode helper
-      */
-      const geocoder = new google.maps.Geocoder();
-      document.getElementById("geocode").addEventListener("click", () => {
-        geocodeAddress(geocoder, map);
-      });
-
-      /*
-      * Draggable marker
-      */
-      const marker = new google.maps.Marker({
-        position: map_center,
-        draggable:true,
-        map: map,
-      });
-
-      const contentString = 'You can move to fine tune the location';
-      let infoWindow = new google.maps.InfoWindow({
-        content: contentString,
-      });
-      infoWindow.open(map, marker);
-
-      marker.addListener("drag", (mapsMouseEvent) => {
-        // Close the current InfoWindow.
-        infoWindow.close();
-        // Create a new InfoWindow.
-        infoWindow = new google.maps.InfoWindow({});
-        infoWindow.setContent(
-          JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
-        );
-        infoWindow.open(map, marker);
-      });
-
-    }
-
-    function geocodeAddress(geocoder, resultsMap) {
-      const address = document.getElementById("address").value;
-      geocoder.geocode({ address: address }, (results, status) => {
-        if (status === "OK") {
-          resultsMap.setCenter(results[0].geometry.location);
-          const marker = new google.maps.Marker({
-            map: resultsMap,
-            position: results[0].geometry.location,
-            draggable:true,
-          });
-
-              
-          const contentString = 'You can move to fine tune the location';
-          let infoWindow = new google.maps.InfoWindow({
-            content: contentString,
-          });
-          infoWindow.open(resultsMap, marker);
-
-          marker.addListener("drag", (mapsMouseEvent) => {
-            // Close the current InfoWindow.
-            infoWindow.close();
-            // Create a new InfoWindow.
-            infoWindow = new google.maps.InfoWindow({});
-            infoWindow.setContent(
-              JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
-            );
-            infoWindow.open(resultsMap, marker);
-          });
-          
-        } else {
-          alert(
-            "Geocode was not successful for the following reason: " + status
-          );
-        }
-      });
-    }
-
-
-  </script>   
+{% block scripts_head %} 
+<script src="{% static "js/gmap_add.js" %}"></script>   
 {% endblock %}
 
+{% block content %}
 <div class="row">
     <div class="col-sm-4">
       <div class="container-fluid">
@@ -136,15 +52,5 @@
     </div>
 
 </div>
-
 {% endblock %}
 
-{% block script_include %}
-
-<!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-<script
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvbgILGvzWiIFiv1P2aS8ygpO2VTvIqhs&callback=initMap&libraries=&v=weekly"
-  async
-></script>
-
-{% endblock %}
