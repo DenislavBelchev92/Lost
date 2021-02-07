@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-4">
       <div class="container-fluid">
 
         <form action="{% url 'beacons:update' %}" method="POST" class="form-horizontal">
@@ -36,6 +36,38 @@
 
       </div>
     </div>
+
+    <div class="col-sm-8">
+        <div class="container-fluid">
+          <h1>Map</h1>
+          <div id="googleMap" style="height:400px;"></div>
+        </div>
+    </div>
 </div>
+
+<script defer>
+let map;
+
+function initMap() {
+  const map_center = new google.maps.LatLng({{beacon.longitude}}, {{beacon.longitude}} )
+
+  const map_prop= {
+    center: map_center,
+    zoom:15,
+  };
+  // Create the map
+  const map = new google.maps.Map(document.getElementById("googleMap"),map_prop);
+
+  const marker = new google.maps.Marker({
+      position: map_center,
+      draggable:true,
+      map: map,
+  });
+}
+
+</script>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvbgILGvzWiIFiv1P2aS8ygpO2VTvIqhs&callback=initMap"></script>
 
 {% endblock %}

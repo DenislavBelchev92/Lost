@@ -68,6 +68,8 @@ def details(request, id=None):
     context = {
         'beacon_id': id,
         'form' : BeaconFullForm(instance=beacon),
+        'beacon' : beacon,
+
     }
     return HttpResponse(render(request, 'beacons/details.html', context))
 
@@ -111,7 +113,7 @@ def update(request):
                 'debug_text': "Please fix the form errors",
                 'form' : form,
             }
-            return HttpResponse(render(request, 'beacons/add.html', context))
+            return HttpResponse(render(request, 'beacons/index.html', context))
     else:
         raise Http404("Page does not exist")
    
