@@ -8,7 +8,6 @@ from django.http import Http404
 @login_required
 def index(request):
     context = {
-        'text': "Beacons",
         'beacons': Beacon.objects.all(),
         'beacon_types': Beacon.beacon_choices,
 
@@ -38,6 +37,8 @@ def add(request, id=None):
             beacon.save()
 
             context = {
+                'beacons': Beacon.objects.all(),
+                'beacon_types': Beacon.beacon_choices,
                 'debug_text': " We saved beacon with name " + beacon.name,
             }
             return HttpResponse(render(request, 'beacons/index.html', context))
