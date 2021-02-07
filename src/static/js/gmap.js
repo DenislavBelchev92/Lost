@@ -29,26 +29,35 @@ function initMarkerDraggable(map, position) {
     });
 }
 
+
 function initMap() {
-    const map_center = new google.maps.LatLng(-34.397, 150.644 )
+    initMapTemplate(-34.397, 150.644, "map");
+}
 
-    const map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 8,
+function initMapTemplate(lat, long, tag_id = "map") {
+    const map_center = new google.maps.LatLng(lat, long)
+
+    const map = new google.maps.Map(document.getElementById(tag_id), {
+        zoom: 14,
         center: map_center,
-    });
-
-    /*
-    * Geocode helper
-    */
-    const geocoder = new google.maps.Geocoder();
-    document.getElementById("geocode").addEventListener("click", () => {
-        geocodeAddress(geocoder, map);
     });
 
     /*
     * Draggable marker
     */
     initMarkerDraggable(map, map_center)
+
+    /*
+    * Geocode helper
+    */
+   var geoCodeExists = document.getElementById("geocode");
+   if (geoCodeExists) {
+    const geocoder = new google.maps.Geocoder();
+    document.getElementById("geocode").addEventListener("click", () => {
+        geocodeAddress(geocoder, map);
+    });
+   }
+
 }
 
 function geocodeAddress(geocoder, resultsMap) {

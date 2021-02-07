@@ -5,7 +5,7 @@
 {% load static %}
 
 {% block scripts_head %} 
-<script src="{% static "js/gmap_details.js" %}"></script>   
+<script src="{% static "js/gmap.js" %}"></script>   
 {% endblock %}
 
 {% block content %}
@@ -46,29 +46,15 @@
     <div class="col-sm-8">
         <div class="container-fluid">
           <h1>Map</h1>
-          <div id="googleMap" style="height:400px;"></div>
+          <div id="map" style="height:400px;"></div>
         </div>
     </div>
 </div>
 
 <script defer>
-let map;
 
 function initMap() {
-  const map_center = new google.maps.LatLng({{beacon.latitude}}, {{beacon.longitude}} )
-
-  const map_prop= {
-    center: map_center,
-    zoom:15,
-  };
-  // Create the map
-  const map = new google.maps.Map(document.getElementById("googleMap"),map_prop);
-
-  const marker = new google.maps.Marker({
-      position: map_center,
-      draggable:true,
-      map: map,
-  });
+    initMapTemplate({{beacon.latitude}}, {{beacon.longitude}});
 }
 
 </script>
