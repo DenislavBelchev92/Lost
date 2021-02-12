@@ -17,6 +17,10 @@ function initMarkerDraggable(map, position) {
     });
     infoWindow.open(map, marker);
 
+    var positionObj = JSON.parse(JSON.stringify(position.toJSON(), null, 2));
+    document.getElementById("id_latitude").value = positionObj.lat;
+    document.getElementById("id_longitude").value = positionObj.lng;
+
     marker.addListener("drag", (mapsMouseEvent) => {
         // Close the current InfoWindow.
         infoWindow.close();
@@ -27,15 +31,18 @@ function initMarkerDraggable(map, position) {
         );
         infoWindow.open(map, marker);
 
-        var myObj = JSON.parse(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2));
-        document.getElementById("id_latitude").value = myObj.lat;
-        document.getElementById("id_longitude").value = myObj.lng;
+        positionObj = JSON.parse(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2));
+        document.getElementById("id_latitude").value = positionObj.lat;
+        document.getElementById("id_longitude").value = positionObj.lng;
 
     });
 }
 
 
 function initMap() {
+    /*
+     * This creates a map with start point Plovdiv
+     */
     initMapTemplate(42.148104117060754, 24.755662688914725, "map");
 }
 
