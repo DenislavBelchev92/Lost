@@ -5,4 +5,14 @@ from .models import Beacon
 class BeaconFullForm(forms.ModelForm):
     class Meta:
         model = Beacon
-        fields = ['id', 'name', 'latitude', 'longitude', 'beacon_type']
+        fields = ['name', 'latitude', 'longitude', 'beacon_type']
+
+class BeaconAddForm(forms.ModelForm):
+    class Meta:
+        model = Beacon
+        fields =['name', 'latitude', 'longitude', 'beacon_type']
+
+        widgets = {
+            'latitude': forms.HiddenInput(),
+            'longitude': forms.HiddenInput(),
+        }

@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Beacon
-from .forms import BeaconFullForm
+from .forms import BeaconFullForm, BeaconAddForm
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
+from django import forms
 
 @login_required
 def index(request):
@@ -52,7 +53,10 @@ def add(request, id=None):
             return HttpResponse(render(request, 'beacons/add.html', context))
     else:
         # Return empty form
-        form = BeaconFullForm()
+        form = BeaconAddForm()
+      #  form.fields['latitude'].widget = forms.HiddenInput()
+ #     form.fields['longitude'].widget = forms.HiddenInput()
+
         context = {
             'form' : form,
         }
