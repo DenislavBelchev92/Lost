@@ -9,11 +9,17 @@ from django import forms
 @login_required
 def index(request):
     context = {
-        'beacons': Beacon.objects.all(),
         'beacon_types': Beacon.beacon_choices,
-
     }
     return HttpResponse(render(request, 'beacons/index.html', context))
+
+@login_required
+def per_type(request, beacon_type=None):
+    context = {
+        'beacons': Beacon.objects.filter(beacon_type=beacon_type),
+        'beacon_types': [b_type for b_type in Beacon.beacon_choices if b_type[0] == beacon_type],
+    }
+    return HttpResponse(render(request, 'beacons/per_type.html', context))
 
 @login_required
 # Used for both add/show/update

@@ -1,0 +1,39 @@
+{% extends "beacons/base.html" %}
+
+{% block title %} Beacons {% endblock %}
+
+{% load static %}
+
+{% block scripts_head %} 
+<script src="{% static "js/gmap.js" %}"></script>   
+{% endblock %}
+
+{% block content %}
+<div class="row">
+
+    <div class="col-sm-4">
+        <div class="container-fluid">
+            <h1>Beacons</h1>
+            {% include "base/beacons_loop.html" %}
+        </div>
+    </div>
+
+    <div class="col-sm-8">
+        <div class="container-fluid">
+          <h1>Map</h1>
+          <div id="map" style="height:400px;"></div>
+        </div>
+    </div>
+
+</div>
+
+<script defer>
+  function initMap() {
+      /*
+      * This creates a map with start point Plovdiv
+      */
+      initMapTemplate(42.148104117060754, 24.755662688914725, "map", false, false);
+  }
+</script>
+
+{% endblock %}

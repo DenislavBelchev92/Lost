@@ -2,48 +2,18 @@
 
 {% block title %} Beacons {% endblock %}
 
-{{debug_text}}
+{% load static %}
 
 {% block content %}
 <div class="row">
-    <div class="col-sm-4">
+
+    <div class="col-sm-12">
         <div class="container-fluid">
             <h1>Beacons</h1>
             {% include "base/beacons_loop.html" %}
         </div>
     </div>
-    <div class="col-sm-8">
-        <div class="container-fluid">
-          <h1>Map</h1>
-          <div id="googleMap" style="height:400px;"></div>
-        </div>
-    </div>
 </div>
 
 
-<!--
-<script defer>
-let map;
-
-function initMap() {
-  const map_center = new google.maps.LatLng(42.8251229,25.4928315)
-
-  const map_prop= {
-    center: map_center,
-    zoom:15,
-  };
-  // Create the map
-  const map = new google.maps.Map(document.getElementById("googleMap"),map_prop);
-
-  const marker = new google.maps.Marker({
-      position: map_center,
-      map: map,
-  });
-}
-
-</script>
-
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDD0zfmYM1Qqnh4Bdfq4C1nX-Wk5f8HqjQ&callback=initMap"></script>
--->
 {% endblock %}
