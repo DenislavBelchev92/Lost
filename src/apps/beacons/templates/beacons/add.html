@@ -15,7 +15,7 @@
 
         <form action="{% url 'beacons:add' %}" method="POST" class="form-horizontal">
           {% csrf_token %}
-
+          <!-- Form Fields { -->
           {% for field in form %}
                 {% if field.is_hidden != 1 %}
                   <div class="form-group">
@@ -25,16 +25,17 @@
 
                 {{ field }}
 
-                {% if field.help_text %}
-                  <p class="help">{{ field.help_text|safe }}</p>
-                {% endif %}
-
                 {% if field.is_hidden != 1 %}
+                  {% if field.help_text %}
+                    <p class="help">{{ field.help_text|safe }}</p>
+                  {% endif %}
+
                   </div>
                 {% endif %}
 
           {% endfor %}
-          
+          <!-- Form Fields } -->
+          <!-- GEOCODE input { -->
           <div class="form-group">
             <div class="input-group">
               <input id="address" class="form-control" type="textbox" value="Plovdiv, Bulgaria" />
@@ -46,7 +47,9 @@
               </div>
             </div>
           </div>
+          <!-- GEOCODE input } -->
 
+          <!-- Save Beacon-->
           <div class="form-group">
             <button type="submit" class="btn btn-primary">Save</button>
           </div>

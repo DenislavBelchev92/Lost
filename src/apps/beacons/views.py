@@ -52,11 +52,8 @@ def add(request, id=None):
             }
             return HttpResponse(render(request, 'beacons/add.html', context))
     else:
-        # Return empty form
+        # Provide empty form
         form = BeaconAddForm()
-      #  form.fields['latitude'].widget = forms.HiddenInput()
- #     form.fields['longitude'].widget = forms.HiddenInput()
-
         context = {
             'form' : form,
         }
