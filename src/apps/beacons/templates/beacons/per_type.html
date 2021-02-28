@@ -28,12 +28,22 @@
 </div>
 
 <script defer>
-  function initMap() {
-      /*
-      * This creates a map with start point Plovdiv
-      */
-      initMapTemplate(42.148104117060754, 24.755662688914725, "map", false, false);
-  }
+
+
+    function initMap() {
+        /*
+        * This creates a map with start point Plovdiv
+        */
+        var LatLong = []
+
+        {% for beacon in beacons %}
+            LatLong.push(new google.maps.LatLng( {{ beacon.latitude|safe }},  {{ beacon.longitude|safe }}))
+        {% endfor %}
+        map = initMapTemplate(LatLong,  "map", false, false, false);
+    
+
+        
+    }
 </script>
 
 {% endblock %}

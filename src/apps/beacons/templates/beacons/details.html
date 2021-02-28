@@ -57,7 +57,8 @@
 <script defer>
 
 function initMap() {
-  initMapTemplate({{beacon.latitude}}, {{beacon.longitude}});
+  initMapTemplate( new google.maps.LatLng( {{beacon.latitude}}, {{beacon.longitude}}) , "map");
+
 }
 
 </script>

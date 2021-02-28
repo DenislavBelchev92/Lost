@@ -1,11 +1,14 @@
 let last_marker = null
 
-function initMarker(map, position, is_draggable = true, is_form = 1) {
+function initMarker(map, position, is_draggable = true, is_form = 1, unique = true) {
 
     /* Delete last marker so map has always only one marker*/
-    if (last_marker) {
-        last_marker.setMap(null)
+    if (unique) {
+        if (last_marker) {
+            last_marker.setMap(null)
+        }
     }
+
     const marker = new google.maps.Marker({
         position: position,
         draggable: is_draggable,
@@ -44,18 +47,28 @@ function initMarker(map, position, is_draggable = true, is_form = 1) {
         });
 }
 
-function initMapTemplate(lat, long, tag_id = "map", draggable = true, is_form = true) {
-    const map_center = new google.maps.LatLng(lat, long)
+function initMapTemplate(LatLong, tag_id = "map", draggable = true, is_form = true, with_single_marker = true) {
 
-    const map = new google.maps.Map(document.getElementById(tag_id), {
+   // alert(LatLong[0])
+    var map_center
+    if (Array.isArray(LatLong)) {
+        map_center = LatLong[2]
+    } else {
+        map_center = LatLong
+    }
+
+    map = new google.maps.Map(document.getElementById(tag_id), {
         zoom: 14,
         center: map_center,
     });
 
-    /*
-    * Draggable marker
-    */
-    initMarker(map, map_center, draggable, is_form)
+    if (Array.isArray(LatLong)) {
+        for (const element of LatLong) {
+            initMarker(map, element, draggable, is_form, false)
+        }
+    } else {
+        initMarker(map, map_center, draggable, is_form, with_single_marker)
+    }
 
     /*
     * Geocode helper
@@ -68,7 +81,7 @@ function initMapTemplate(lat, long, tag_id = "map", draggable = true, is_form = 
      });
     }
 
-
+    return map
 
 }
 
