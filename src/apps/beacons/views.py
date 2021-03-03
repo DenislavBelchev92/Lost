@@ -98,6 +98,7 @@ def update(request):
         else:
             beacon.delete()
             context = {
+                'beacon_types': Beacon.beacon_choices,
                 'debug_text': " We deleted beacon with name " + beacon.name ,
             }
             return HttpResponse(render(request, 'beacons/index.html', context))
@@ -115,6 +116,7 @@ def update(request):
             beacon.save()
 
             context = {
+                'beacon_types': Beacon.beacon_choices,
                 'debug_text': " We updated beacon with name " + beacon.name ,
             }
             return HttpResponse(render(request, 'beacons/index.html', context))
