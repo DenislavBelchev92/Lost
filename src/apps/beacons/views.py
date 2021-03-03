@@ -33,13 +33,16 @@ def add(request, id=None):
             latitude = form.cleaned_data.get('latitude')
             longitude = form.cleaned_data.get('longitude')
             beacon_type = form.cleaned_data.get('beacon_type')
+            beacon_description = form.cleaned_data.get('description')
 
             beacon = Beacon.objects.create(
                 name=name, 
                 user_id=user_id, 
                 latitude=latitude, 
                 longitude=longitude,
-                beacon_type=beacon_type)
+                beacon_type=beacon_type,
+                description=beacon_description
+                )
 
             beacon.save()
 
@@ -107,6 +110,7 @@ def update(request):
             beacon.latitude = form.cleaned_data.get('latitude')
             beacon.longitude = form.cleaned_data.get('longitude')
             beacon.beacon_type = form.cleaned_data.get('beacon_type')
+            beacon.description = form.cleaned_data.get('description')
 
             beacon.save()
 
