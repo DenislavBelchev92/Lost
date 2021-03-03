@@ -39,7 +39,7 @@
         {% for beacon in beacons %}
             LatLong.push(new google.maps.LatLng( {{ beacon.latitude|safe }},  {{ beacon.longitude|safe }}))
         {% endfor %}
-        map = initMapTemplate(LatLong,  "map", false, false, false);
+        map = initMapTemplate(LatLong,  "map", false, false, false , 2);
     
 
         

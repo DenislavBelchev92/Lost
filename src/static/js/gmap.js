@@ -1,7 +1,6 @@
 let last_marker = null
 
 function initMarker(map, position, is_draggable = true, is_form = 1, unique = true) {
-
     /* Delete last marker so map has always only one marker*/
     if (unique) {
         if (last_marker) {
@@ -16,18 +15,23 @@ function initMarker(map, position, is_draggable = true, is_form = 1, unique = tr
     });
     last_marker = marker
 
+    let infoWindow
+    if (is_form) {
         const contentString = 'You can move to fine tune the location';
-        let infoWindow = new google.maps.InfoWindow({
+        infoWindow = new google.maps.InfoWindow({
             content: contentString,
         });
         infoWindow.open(map, marker);
 
-    
+    }
+
     if (is_form) {
         var positionObj = JSON.parse(JSON.stringify(position.toJSON(), null, 2));
         document.getElementById("id_latitude").value = positionObj.lat;
         document.getElementById("id_longitude").value = positionObj.lng;    
     }
+
+    if (is_form) {
 
         marker.addListener("drag", (mapsMouseEvent) => {
             // Close the current InfoWindow.
@@ -43,13 +47,12 @@ function initMarker(map, position, is_draggable = true, is_form = 1, unique = tr
                 document.getElementById("id_latitude").value = positionObj.lat;
                 document.getElementById("id_longitude").value = positionObj.lng;
             }
-
         });
+    }
+
 }
 
-function initMapTemplate(LatLong, tag_id = "map", draggable = true, is_form = true, with_single_marker = true) {
-
-   // alert(LatLong[0])
+function initMapTemplate(LatLong, tag_id = "map", draggable = true, is_form = true, with_single_marker = true, zoom = 14) {
     var map_center
     if (Array.isArray(LatLong)) {
         map_center = LatLong[2]
@@ -58,7 +61,7 @@ function initMapTemplate(LatLong, tag_id = "map", draggable = true, is_form = tr
     }
 
     map = new google.maps.Map(document.getElementById(tag_id), {
-        zoom: 14,
+        zoom: zoom,
         center: map_center,
     });
 
