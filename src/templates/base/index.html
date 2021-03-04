@@ -74,14 +74,29 @@
         <!-- RIGHT -->
         <div class="col-xs-10"> <!-- right -->
             <div class="container-fluid">
-                {% block content %}
-                
-                {% endblock %}
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        {% block content %}
+                        {% endblock %}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        {% block content_left %}
+                        {% endblock %}
+                    </div>
+
+                    <div class="col-md-8 col-sm-12">
+                        {% block content_right %}
+                        {% endblock %}
+                    </div>
+                </div>
             </div><!-- /.container -->
         </div> <!-- right -->
     </div> <!-- mainpart -->
     {% endblock %}
-
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -90,6 +105,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 
     {% block scripts_body %}{% endblock %}
+    {% block scripts_body_gmap %}{% endblock %}
 
 </body>
 </html>

@@ -8,38 +8,34 @@
 <script src="{% static "js/gmap.js" %}"></script>   
 {% endblock %}
 
-{% block content %}
-<div class="row">
-
-    <div class="col-sm-4">
-        <div class="container-fluid">
-            {% include "base/beacons_loop.html" %}
-        </div>
+{% block content_left %}
+    <div class="container-fluid">
+        {% include "base/beacons_loop.html" %}
     </div>
+{% endblock %}
 
-    <div class="col-sm-8">
-        <div class="container-fluid">
-          <div id="map" style="height:400px;"></div>
-        </div>
+{% block content_right %}
+
+    <div class="container-fluid">
+        <div id="map" style="height:400px;"></div>
     </div>
+{% endblock %}
 
-</div>
+{% block scripts_body %}
 
-<script defer>
+    <script defer>
+        function initMap() {
+            /*
+            * First marker coordinates
+            */
+            var LatLong = []
 
+            {% for beacon in beacons %}
+                LatLong.push(new google.maps.LatLng( {{ beacon.latitude|safe }},  {{ beacon.longitude|safe }}))
+            {% endfor %}
+            map = initMapTemplate(LatLong,  "map", false, false, false , 5);
 
-    function initMap() {
-        /*
-        * First marker coordinates
-        */
-        var LatLong = []
-
-        {% for beacon in beacons %}
-            LatLong.push(new google.maps.LatLng( {{ beacon.latitude|safe }},  {{ beacon.longitude|safe }}))
-        {% endfor %}
-        map = initMapTemplate(LatLong,  "map", false, false, false , 5);
-
-    }
-</script>
+        }
+    </script>
 
 {% endblock %}

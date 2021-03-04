@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from .forms import LoginForm, RegisterForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from common.utilities import index_context
+from .forms import LoginForm, RegisterForm
 
 def loginView(request):
     if request.method == 'POST':
@@ -17,6 +18,7 @@ def loginView(request):
                 context = {
                     'text': "loged_in " + username,
                 }
+                context.update(index_context)
                 return HttpResponse(render(request, 'beacons/index.html', context))
 
             else:
@@ -43,6 +45,7 @@ def logoutView(request):
     context = {
         'text': " You are now loged out! ",
     }
+
     return HttpResponse(render(request, 'beacons/index.html', context))
 
 def registerView(request):
@@ -65,6 +68,7 @@ def registerView(request):
             context = {
                 'text': "You just registered with first_name " + first_name + " last_name " + last_name + " username " + " email " + email + " password " + str(password),
             }
+            context.update(index_context)
             return HttpResponse(render(request, 'beacons/index.html', context))
         else:
             context = {

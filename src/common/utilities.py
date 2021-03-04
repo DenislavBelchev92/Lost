@@ -1,3 +1,8 @@
 #!/usr/bin/env python
 
-# Write common functions here
+from apps.beacons.models import Beacon
+
+# Utilities - start {
+index_context = {
+    'beacon_types': Beacon.beacon_choices,
+}

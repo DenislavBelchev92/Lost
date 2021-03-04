@@ -8,81 +8,80 @@
 <script src="{% static "js/gmap.js" %}"></script>   
 {% endblock %}
 
-{% block content %}
-<div class="row">
-    <div class="col-sm-4">
-      <div class="container-fluid">
+{% block content_left %}
+  <div class="container-fluid">
 
-        <form action="{% url 'beacons:add' %}" method="POST" class="form-horizontal">
-          {% csrf_token %}
-          <!-- Form Fields { -->
-          {% for field in form %}
-                {% if field.is_hidden != 1 %}
-                  <div class="form-group">
-                  {{ field.errors }}
-                  {{ field.label_tag }} 
-                {% endif %}
+    <form action="{% url 'beacons:add' %}" method="POST" class="form-horizontal">
+      {% csrf_token %}
+      <!-- Form Fields { -->
+      {% for field in form %}
+            {% if field.is_hidden != 1 %}
+              <div class="form-group">
+              {{ field.errors }}
+              {{ field.label_tag }} 
+            {% endif %}
 
-                {{ field }}
+            {{ field }}
 
-                {% if field.is_hidden != 1 %}
-                  {% if field.help_text %}
-                    <p class="help">{{ field.help_text|safe }}</p>
-                  {% endif %}
+            {% if field.is_hidden != 1 %}
+              {% if field.help_text %}
+                <p class="help">{{ field.help_text|safe }}</p>
+              {% endif %}
 
-                  </div>
-                {% endif %}
-
-          {% endfor %}
-          <!-- Form Fields } -->
-          <!-- GEOCODE input { -->
-          <div class="form-group">
-            <div class="input-group">
-              <input id="address" class="form-control" type="textbox" value="Plovdiv, Bulgaria" />
-
-              <div class="input-group-btn">
-                <button id="geocode" class="btn btn-default"  type="button" value="Search Place">
-                  <i class="glyphicon glyphicon-search"></i>
-                </button>
               </div>
-            </div>
+            {% endif %}
+
+      {% endfor %}
+      <!-- Form Fields } -->
+      <!-- GEOCODE input { -->
+      <div class="form-group">
+        <div class="input-group">
+          <input id="address" class="form-control" type="textbox" value="Plovdiv, Bulgaria" />
+
+          <div class="input-group-btn">
+            <button id="geocode" class="btn btn-default"  type="button" value="Search Place">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
           </div>
-          <!-- GEOCODE input } -->
-
-          <!-- Save Beacon-->
-          <div class="form-group">
-            <button type="submit" class="btn btn-primary">Save</button>
-          </div>
-
-        </form>
-
-        {% if form.subject.errors %}
-            <ol>
-            {% for error in form.subject.errors %}
-                <li><strong>{{ error|escape }}</strong></li>
-            {% endfor %}
-            </ol>
-        {% endif %}
-
-      </div>
-    </div>
-
-    <div class="col-sm-8">
-        <div class="container-fluid">
-          <div id="map" style="height:400px;"></div>
         </div>
-    </div>
+      </div>
+      <!-- GEOCODE input } -->
 
-</div>
+      <!-- Save Beacon-->
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
 
-<script defer>
-  function initMap() {
-      /*
-      * This creates a map with start point Plovdiv
-      */
-      initMapTemplate( new google.maps.LatLng(42.148104117060754, 24.755662688914725) , "map");
-  }
-</script>
+    </form>
+
+    {% if form.subject.errors %}
+        <ol>
+        {% for error in form.subject.errors %}
+            <li><strong>{{ error|escape }}</strong></li>
+        {% endfor %}
+        </ol>
+    {% endif %}
+
+  </div>
 
 {% endblock %}
 
+{% block content_right %}
+  <div class="container-fluid">
+    <div id="map" style="height:400px;"></div>
+  </div>
+
+{% endblock %}
+
+{% block scripts_body %}
+
+  <script defer>
+    function initMap() {
+        /*
+        * This creates a map with start point Plovdiv
+        */
+        initMapTemplate( new google.maps.LatLng(42.148104117060754, 24.755662688914725) , "map");
+    }
+  </script>
+
+{% endblock %}

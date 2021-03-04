@@ -2,32 +2,21 @@
 
 {% block title %} User Profile {% endblock %}
 
-{% block content %}
 {% if user.is_authenticated %}
-
   {{text}}
 
-  <div class="row">
+  {% block content_left %}
 
-    <div class="col-sm-4">
-        <div class="container-fluid">
-            <h1>Beacons</h1>
-
-            {% include "base/beacons_loop.html" %}
-
-        </div>
+    <div class="container-fluid">
+        {% include "base/beacons_loop.html" %}
     </div>
 
-    <div class="col-sm-8  ">
-        <div class="container-fluid">
-          <h1>Map</h1>
-          <div id="googleMap" style="height:400px;"></div>
-        </div>
+  {% endblock %}
+
+  {% block content_right %}
+    <div class="container-fluid">
+      <div id="map" style="height:400px;"></div>
     </div>
+  {% endblock %}
 
-  </div>
-
-{% else %}
-        What did you left here that you are searching for?
 {% endif %}
-{% endblock %}

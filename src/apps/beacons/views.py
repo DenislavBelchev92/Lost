@@ -1,16 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Beacon
-from .forms import BeaconFullForm, BeaconAddForm
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django import forms
+from common.utilities import index_context
+from .models import Beacon
+from .forms import BeaconFullForm, BeaconAddForm
 
-index_context = {
-    'beacon_types': Beacon.beacon_choices,
-}
 
-# Utilities - start {
 def render_add_form(request, debug_text = "", is_add = 1,):
     # Provide empty form
     if is_add:
