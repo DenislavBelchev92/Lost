@@ -13,14 +13,12 @@
 
     <div class="col-sm-4">
         <div class="container-fluid">
-            <h1>Beacons</h1>
             {% include "base/beacons_loop.html" %}
         </div>
     </div>
 
     <div class="col-sm-8">
         <div class="container-fluid">
-          <h1>Map</h1>
           <div id="map" style="height:400px;"></div>
         </div>
     </div>
@@ -32,17 +30,15 @@
 
     function initMap() {
         /*
-        * This creates a map with start point Plovdiv
+        * First marker coordinates
         */
         var LatLong = []
 
         {% for beacon in beacons %}
             LatLong.push(new google.maps.LatLng( {{ beacon.latitude|safe }},  {{ beacon.longitude|safe }}))
         {% endfor %}
-        map = initMapTemplate(LatLong,  "map", false, false, false , 2);
-    
+        map = initMapTemplate(LatLong,  "map", false, false, false , 5);
 
-        
     }
 </script>
 
