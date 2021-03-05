@@ -1,37 +1,38 @@
 let last_marker = null
 
-function initMarker(map, position, is_draggable = true, is_form = 1, unique = true) {
+function initMarker(map, marker_info, is_draggable = true, is_form = 1, unique = true) {
     /* Delete last marker so map has always only one marker*/
     if (unique) {
         if (last_marker) {
             last_marker.setMap(null)
         }
     }
+    position = marker_info.LatLong
+    beacon_id = marker_info.id
 
-    const marker = new google.maps.Marker({
+    var marker = new google.maps.Marker({
         position: position,
         draggable: is_draggable,
         map: map,
     });
     last_marker = marker
 
-    let infoWindow
-    if (is_form) {
-        const contentString = 'You can move to fine tune the location';
-        infoWindow = new google.maps.InfoWindow({
-            content: contentString,
-        });
-        infoWindow.open(map, marker);
-
-    }
+    marker.addListener("click", (mapsMouseEvent) => {
+        document.getElementById(beacon_id).style.color = "blue";
+    });
 
     if (is_form) {
         var positionObj = JSON.parse(JSON.stringify(position.toJSON(), null, 2));
         document.getElementById("id_latitude").value = positionObj.lat;
         document.getElementById("id_longitude").value = positionObj.lng;    
-    }
 
-    if (is_form) {
+        let infoWindow
+
+        const contentString = 'You can move to fine tune the location';
+        infoWindow = new google.maps.InfoWindow({
+            content: contentString,
+        });
+        infoWindow.open(map, marker);
 
         marker.addListener("drag", (mapsMouseEvent) => {
             // Close the current InfoWindow.
@@ -52,12 +53,12 @@ function initMarker(map, position, is_draggable = true, is_form = 1, unique = tr
 
 }
 
-function initMapTemplate(LatLong, tag_id = "map", draggable = true, is_form = true, with_single_marker = true, zoom = 14) {
+function initMapTemplate(markers, tag_id = "map", draggable = true, is_form = true, with_single_marker = true, zoom = 14) {
     var map_center
-    if (Array.isArray(LatLong)) {
-        map_center = LatLong[2]
+    if (Array.isArray(markers)) {
+        map_center = markers[2].LatLong
     } else {
-        map_center = LatLong
+        map_center = markers.LatLong
     }
 
     map = new google.maps.Map(document.getElementById(tag_id), {
@@ -65,12 +66,12 @@ function initMapTemplate(LatLong, tag_id = "map", draggable = true, is_form = tr
         center: map_center,
     });
 
-    if (Array.isArray(LatLong)) {
-        for (const element of LatLong) {
-            initMarker(map, element, draggable, is_form, false)
+    if (Array.isArray(markers)) {
+        for (const marker of markers) {
+            initMarker(map, marker, draggable, is_form, false)
         }
     } else {
-        initMarker(map, map_center, draggable, is_form, with_single_marker)
+        initMarker(map, markers, draggable, is_form, with_single_marker)
     }
 
     /*
@@ -108,4 +109,6 @@ function geocodeAddress(geocoder, resultsMap) {
     });
 }
 
-
+function beaconBold(beacon_id) {
+    alert("beacon_id " + beacon_id)
+}

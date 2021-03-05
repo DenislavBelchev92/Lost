@@ -80,7 +80,11 @@
         /*
         * This creates a map with start point Plovdiv
         */
-        initMapTemplate( new google.maps.LatLng(42.148104117060754, 24.755662688914725) , "map");
+        var beacon_markers = {
+          LatLong : new google.maps.LatLng(42.148104117060754, 24.755662688914725), 
+          id : -1  
+        }
+        initMapTemplate( beacon_markers );
     }
   </script>
 

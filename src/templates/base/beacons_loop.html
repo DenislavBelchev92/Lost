@@ -3,12 +3,12 @@
 
     {% if beacons %}
         <button class="btn btn-primary btn-block" data-toggle="collapse" data-target="#collapse{{type_short}}">{{type}}</button>
-        <div id="collapse{{type_short}}" class="collapse">
+        <div id="collapse{{type_short}}" class="collapse in">
 
             <ul class="list-group">
                 {% for beacon in beacons %}
                     {% if beacon.beacon_type == type_short %}
-                    <a href="{% url 'beacons:details' id=beacon.id %}" class="list-group-item">{{beacon.name}}</a>
+                    <a href="{% url 'beacons:details' id=beacon.id %}" class="list-group-item" id="beacon{{beacon.id}}">{{beacon.name}}</a>
                     {% endif %}
                 {% endfor %}
             </ul>

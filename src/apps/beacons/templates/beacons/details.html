@@ -40,6 +40,8 @@
         </ol>
     {% endif %}
   </div>
+{% endblock %}
+
 
 {% block content_right %}
 
@@ -54,7 +56,11 @@
   <script defer>
 
     function initMap() {
-      initMapTemplate( new google.maps.LatLng( {{beacon.latitude}}, {{beacon.longitude}}) , "map");
+      var beacon_markers = {
+        LatLong : new google.maps.LatLng( {{beacon.latitude}}, {{beacon.longitude}}), 
+        id : "beacon"+{{beacon.id}} 
+      }
+      initMapTemplate(beacon_markers);
     }
 
   </script>
