@@ -1,5 +1,5 @@
 let last_marker = null
-
+let previousHighlightedBeaconID = null
 function initMarker(map, marker_info, is_draggable = true, is_form = 1, unique = true) {
     /* Delete last marker so map has always only one marker*/
     if (unique) {
@@ -71,7 +71,11 @@ function initMapTemplate(markers, tag_id = "map", draggable = true, is_form = tr
             marker = initMarker(map, marker_info, draggable, is_form, false)
             google.maps.event.addListener(marker, 'click', (function (marker) {
                 return function() {
-                    document.getElementById(marker_info.id).style.color = "blue";
+                    if (previousHighlightedBeaconID != null) {
+                        document.getElementById(previousHighlightedBeaconID).classList.remove("active");
+                    }
+                    document.getElementById(marker_info.id).classList.add("active");
+                    previousHighlightedBeaconID = marker_info.id
                 }
              }) (marker) );
         }
