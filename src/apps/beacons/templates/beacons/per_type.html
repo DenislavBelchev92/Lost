@@ -34,7 +34,7 @@
                 beacon_markers.push({
                     LatLong : new google.maps.LatLng( {{ beacon.latitude|safe }},  {{ beacon.longitude|safe }}),
                     id : "beacon" + {{ beacon.id|safe }} 
-                    })
+                })
             {% endfor %}
             map = initMapTemplate(beacon_markers,  "map", false, false, false , 5);
 

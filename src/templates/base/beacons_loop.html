@@ -5,13 +5,26 @@
         <button class="btn btn-primary btn-block" data-toggle="collapse" data-target="#collapse{{type_short}}">{{type}}</button>
         <div id="collapse{{type_short}}" class="collapse in">
 
-            <ul class="list-group">
+            <div class="panel-group" id="accordion">
                 {% for beacon in beacons %}
                     {% if beacon.beacon_type == type_short %}
-                    <a href="{% url 'beacons:details' id=beacon.id %}" class="list-group-item" id="beacon{{beacon.id}}">{{beacon.name}}</a>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a href="#extra_info{{beacon.id}}" id="beacon{{beacon.id}}"  class="btn btn-primary btn-block" data-toggle="collapse" data-parent="#accordion">{{beacon.name}} </a>
+                        </div>
+                        <div id="extra_info{{beacon.id}}" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <p>Search icon on a styled button:
+                                    <a href="{% url 'beacons:details' id=beacon.id %}" class="btn btn-info"><span class="glyphicon glyphicon-arrow-right"></span> Visit</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
                     {% endif %}
                 {% endfor %}
-            </ul>
+            </div>
 
         </div>
     {% else %}
@@ -19,5 +32,3 @@
     {% endif %}
 
 {% endfor %}
-
-

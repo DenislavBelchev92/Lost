@@ -1,5 +1,6 @@
 let last_marker = null
 let previousHighlightedBeaconID = null
+let previousHighlightedBeaconExtraInfoID = null
 function initMarker(map, marker_info, is_draggable = true, is_form = 1, unique = true) {
     /* Delete last marker so map has always only one marker*/
     if (unique) {
@@ -71,11 +72,35 @@ function initMapTemplate(markers, tag_id = "map", draggable = true, is_form = tr
             marker = initMarker(map, marker_info, draggable, is_form, false)
             google.maps.event.addListener(marker, 'click', (function (marker) {
                 return function() {
-                    if (previousHighlightedBeaconID != null) {
-                        document.getElementById(previousHighlightedBeaconID).classList.remove("active");
+                    var extra_info_id = marker_info.id.replace("beacon", "extra_info");
+
+                    if (previousHighlightedBeaconID == null) {
+                        uncollapsedArray = document.getElementsByClassName("in");
+                        alert(uncollapsedArray.length)
+                        if (uncollapsedArray.length>1) {
+                            previousHighlightedBeaconExtraInfoID = document.getElementsByClassName("in")[1].id;
+                            previousHighlightedBeaconID = marker_info.id.replace("extra_info", "beacon");
+                        }
                     }
-                    document.getElementById(marker_info.id).classList.add("active");
+
+                    if (previousHighlightedBeaconID != null) {
+                        document.getElementById(previousHighlightedBeaconID).setAttribute("aria-expanded", "false");
+                        document.getElementById(previousHighlightedBeaconID).classList.add("collapsed");
+                        document.getElementById(previousHighlightedBeaconExtraInfoID).style.height="0%";
+                        document.getElementById(previousHighlightedBeaconExtraInfoID).classList.remove("in");
+                        document.getElementById(previousHighlightedBeaconExtraInfoID).setAttribute("aria-expanded", "false");
+
+                    }
+
+                    document.getElementById(marker_info.id).classList.remove("collapsed");
+                    document.getElementById(marker_info.id).setAttribute("aria-expanded", "true");
+                    document.getElementById(extra_info_id).style.height="100%";
+                    document.getElementById(extra_info_id).classList.add("in");
+                    document.getElementById(extra_info_id).setAttribute("aria-expanded", "true");
+
                     previousHighlightedBeaconID = marker_info.id
+                    previousHighlightedBeaconExtraInfoID = extra_info_id
+
                 }
              }) (marker) );
         }
