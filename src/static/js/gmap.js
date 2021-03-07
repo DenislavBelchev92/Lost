@@ -17,10 +17,6 @@ function initMarker(map, marker_info, is_draggable = true, is_form = 1, unique =
     });
     last_marker = marker
 
-    marker.addListener("click", (mapsMouseEvent) => {
-        document.getElementById(beacon_id).style.color = "blue";
-    });
-
     if (is_form) {
         var positionObj = JSON.parse(JSON.stringify(position.toJSON(), null, 2));
         document.getElementById("id_latitude").value = positionObj.lat;
@@ -51,6 +47,8 @@ function initMarker(map, marker_info, is_draggable = true, is_form = 1, unique =
         });
     }
 
+    return marker
+
 }
 
 function initMapTemplate(markers, tag_id = "map", draggable = true, is_form = true, with_single_marker = true, zoom = 14) {
@@ -66,9 +64,16 @@ function initMapTemplate(markers, tag_id = "map", draggable = true, is_form = tr
         center: map_center,
     });
 
+    var marker;
+
     if (Array.isArray(markers)) {
-        for (const marker of markers) {
-            initMarker(map, marker, draggable, is_form, false)
+        for (const marker_info of markers) {
+            marker = initMarker(map, marker_info, draggable, is_form, false)
+            google.maps.event.addListener(marker, 'click', (function (marker) {
+                return function() {
+                    document.getElementById(marker_info.id).style.color = "blue";
+                }
+             }) (marker) );
         }
     } else {
         initMarker(map, markers, draggable, is_form, with_single_marker)
@@ -107,8 +112,4 @@ function geocodeAddress(geocoder, resultsMap) {
         );
         }
     });
-}
-
-function beaconBold(beacon_id) {
-    alert("beacon_id " + beacon_id)
 }
