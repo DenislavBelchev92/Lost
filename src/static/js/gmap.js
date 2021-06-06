@@ -8,6 +8,7 @@ function initMarker(map, marker_info, is_draggable = true, is_form = 1, unique =
             last_marker.setMap(null)
         }
     }
+
     position = marker_info.LatLong
     beacon_id = marker_info.id
 
@@ -51,8 +52,18 @@ function initMarker(map, marker_info, is_draggable = true, is_form = 1, unique =
     return marker
 
 }
-
+/**
+ * 
+ * @param {*} markers 
+ * @param {*} tag_id 
+ * @param {*} draggable 
+ * @param {*} is_form 
+ * @param {*} with_single_marker 
+ * @param {*} zoom 
+ * @returns 
+ */
 function initMapTemplate(markers, tag_id = "map", draggable = true, is_form = true, with_single_marker = true, zoom = 14) {
+  
     var map_center
     if (Array.isArray(markers)) {
         map_center = markers[2].LatLong
@@ -76,7 +87,6 @@ function initMapTemplate(markers, tag_id = "map", draggable = true, is_form = tr
 
                     if (previousHighlightedBeaconID == null) {
                         uncollapsedArray = document.getElementsByClassName("in");
-                        alert(uncollapsedArray.length)
                         if (uncollapsedArray.length>1) {
                             previousHighlightedBeaconExtraInfoID = document.getElementsByClassName("in")[1].id;
                             previousHighlightedBeaconID = marker_info.id.replace("extra_info", "beacon");
